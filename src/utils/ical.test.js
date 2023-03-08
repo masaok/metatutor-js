@@ -1,24 +1,7 @@
 import ical from 'ical'
 import IcalExpander from 'ical-expander'
 
-describe('ical', () => {
-  it('should use ical-expander', () => {
-    const months = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ]
-
-    const data = ical.parseICS(`BEGIN:VCALENDAR
+const rawIcs = `BEGIN:VCALENDAR
 VERSION:2.0
 CALSCALE:GREGORIAN
 BEGIN:VEVENT
@@ -49,7 +32,26 @@ DESCRIPTION:Pickup Reminder
 ACTION:DISPLAY
 END:VALARM
 END:VEVENT
-END:VCALENDAR`)
+END:VCALENDAR`
+
+describe('ical', () => {
+  it('should use ical-expander', () => {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ]
+
+    const data = ical.parseICS(rawIcs)
 
     for (let k in data) {
       if (data.hasOwnProperty(k)) {
@@ -66,14 +68,7 @@ END:VCALENDAR`)
   })
 
   it.skip('should use ical-expander', () => {
-    const ical = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Google Inc//Google Calendar 70.9054//EN
-DTSTART:19701025T030000
-RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
-END:STANDARD
-END:VTIMEZONE
-`
+    const ical = rawIcs
 
     const icalExpander = new IcalExpander({ ical, maxIterations: 1000 })
     const events = icalExpander.between(new Date('2020-01-01'), new Date('2020-12-31'))
