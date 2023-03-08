@@ -35,7 +35,9 @@ END:VEVENT
 END:VCALENDAR`
 
 describe('ical', () => {
-  it('should use ical-expander', () => {
+  // Basic Ical parsing library
+  // https://www.npmjs.com/package/ical
+  it('should use ical.js', () => {
     const months = [
       'Jan',
       'Feb',
@@ -67,6 +69,8 @@ describe('ical', () => {
     }
   })
 
+  // Ical Expander
+  // https://www.npmjs.com/package/ical-expander
   it.skip('should use ical-expander', () => {
     const ical = rawIcs
 
